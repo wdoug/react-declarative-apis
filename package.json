@@ -4,7 +4,8 @@
   "main": "server/server.js",
   "scripts": {
     "lint": "eslint .",
-    "start": "node .",
+    "client": "cd client && npm start",
+    "start": "concurrently \"node .\" \"npm run client\"",
     "posttest": "npm run lint && nsp check"
   },
   "dependencies": {
@@ -18,6 +19,7 @@
     "strong-error-handler": "^1.0.1"
   },
   "devDependencies": {
+    "concurrently": "^3.1.0",
     "eslint": "^2.13.1",
     "eslint-config-loopback": "^4.0.0",
     "nsp": "^2.1.0"
