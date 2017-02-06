@@ -28,5 +28,8 @@
   },
   "license": "ISC",
   "description": "react-declarative-apis",
-  "author": "Willy <willygdouglas@gmail.com>"
+  "author": "Willy <willygdouglas@gmail.com>",
+  "engines": {
+    "node": ">=7"
+  }
 }
