@@ -1,11 +1,11 @@
 'use strict';
 const graphql = require('graphql');
 const expressGraphql = require('express-graphql');
-const Schema = require('../graphql/schema');
+const createSchema = require('../graphql/createSchema');
 
 module.exports = function(server) {
   server.use('/graphql', expressGraphql({
-    schema: Schema,
+    schema: createSchema(server),
     graphiql: true,
   }));
   console.log('graphql api on /graphql');
