@@ -1,5 +1,4 @@
 'use strict';
-const graphql = require('graphql');
 const expressGraphql = require('express-graphql');
 const createSchema = require('../graphql/createSchema');
 
