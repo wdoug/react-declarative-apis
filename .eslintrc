@@ -5,10 +5,15 @@
     "ecmaVersion": 6
   },
 
+  "plugins": [
+    "import"
+  ],
+
   "rules": {
-    "no-unused-vars": ["error", { "args": "none" }],
     "func-call-spacing": "off",
-    "object-curly-spacing": "off",
-    "max-len": "warn"
+    "import/no-unresolved": 2,
+    "max-len": "warn",
+    "no-unused-vars": ["error", { "args": "none" }],
+    "object-curly-spacing": "off"
   }
 }

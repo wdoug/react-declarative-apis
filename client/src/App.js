@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 
 import TodoList from './TodoList';
+import FollowersList from './FollowersList';
 
 const App = () => (
   <Router>
@@ -14,6 +15,7 @@ const App = () => (
         <li><Link to="/">Home</Link></li>
         <li><Link to="/todo">Todo List</Link></li>
         <li><Link to="/topics">Topics</Link></li>
+        <li><Link to="/followers/1">Followers</Link></li>
       </ul>
 
       <hr/>
@@ -21,6 +23,7 @@ const App = () => (
       <Route exact path="/" component={Home}/>
       <Route path="/todo" component={TodoList}/>
       <Route path="/topics" component={Topics}/>
+      <Route path="/followers/:id" component={FollowersList}/>
     </div>
   </Router>
 );

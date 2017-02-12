@@ -1,8 +1,14 @@
 {
   "extends": "react-app",
 
+  "plugins": [
+    "import"
+  ],
+
   "rules": {
-    // "no-unused-vars": "error",
+    "import/default": 2,
+    "import/named": 2,
+    "import/namespace": 2,
     "semi": ["error", "always"]
   }
 }

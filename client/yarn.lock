@@ -279,16 +279,6 @@ babel-core@^6.22.0:
     slash "^1.0.0"
     source-map "^0.5.0"
 
-babel-eslint@6.1.2:
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-6.1.2.tgz#5293419fe3672d66598d327da9694567ba6a5f2f"
-  dependencies:
-    babel-traverse "^6.0.20"
-    babel-types "^6.0.19"
-    babylon "^6.0.18"
-    lodash.assign "^4.0.0"
-    lodash.pickby "^4.0.0"
-
 babel-eslint@7.1.1:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-7.1.1.tgz#8a6a884f085aa7060af69cfc77341c2f99370fb2"
@@ -924,7 +914,7 @@ babel-template@^6.16.0, babel-template@^6.22.0:
     babylon "^6.11.0"
     lodash "^4.2.0"
 
-babel-traverse@^6.0.20, babel-traverse@^6.15.0, babel-traverse@^6.16.0, babel-traverse@^6.18.0, babel-traverse@^6.22.0, babel-traverse@^6.22.1:
+babel-traverse@^6.15.0, babel-traverse@^6.16.0, babel-traverse@^6.18.0, babel-traverse@^6.22.0, babel-traverse@^6.22.1:
   version "6.22.1"
   resolved "https://registry.yarnpkg.com/babel-traverse/-/babel-traverse-6.22.1.tgz#3b95cd6b7427d6f1f757704908f2fc9748a5f59f"
   dependencies:
@@ -938,7 +928,7 @@ babel-traverse@^6.0.20, babel-traverse@^6.15.0, babel-traverse@^6.16.0, babel-tr
     invariant "^2.2.0"
     lodash "^4.2.0"
 
-babel-types@^6.0.19, babel-types@^6.15.0, babel-types@^6.16.0, babel-types@^6.18.0, babel-types@^6.19.0, babel-types@^6.22.0:
+babel-types@^6.15.0, babel-types@^6.16.0, babel-types@^6.18.0, babel-types@^6.19.0, babel-types@^6.22.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-types/-/babel-types-6.22.0.tgz#2a447e8d0ea25d2512409e4175479fd78cc8b1db"
   dependencies:
@@ -947,7 +937,7 @@ babel-types@^6.0.19, babel-types@^6.15.0, babel-types@^6.16.0, babel-types@^6.18
     lodash "^4.2.0"
     to-fast-properties "^1.0.1"
 
-babylon@^6.0.18, babylon@^6.11.0, babylon@^6.13.0, babylon@^6.15.0:
+babylon@^6.11.0, babylon@^6.13.0, babylon@^6.15.0:
   version "6.15.0"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.15.0.tgz#ba65cfa1a80e1759b0e89fb562e27dccae70348e"
 
@@ -1627,13 +1617,6 @@ diff@^3.0.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.2.0.tgz#c9ce393a4b7cbd0b058a725c93df299027868ff9"
 
-doctrine@1.2.x:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-1.2.3.tgz#6aec6bbd62cf89dd498cae70c0ed9f49da873a6a"
-  dependencies:
-    esutils "^2.0.2"
-    isarray "^1.0.0"
-
 doctrine@1.3.x:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-1.3.0.tgz#13e75682b55518424276f7c173783456ef913d26"
@@ -1778,7 +1761,7 @@ es6-map@^0.1.3:
     es6-symbol "~3.1.0"
     event-emitter "~0.3.4"
 
-es6-set@^0.1.4, es6-set@~0.1.3:
+es6-set@~0.1.3:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/es6-set/-/es6-set-0.1.4.tgz#9516b6761c2964b92ff479456233a247dc707ce8"
   dependencies:
@@ -1832,10 +1815,6 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-react-app@0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-react-app/-/eslint-config-react-app-0.2.1.tgz#ad510d0d0ae11575d0eabe5493ba6e66fb93e68e"
-
 eslint-config-react-app@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/eslint-config-react-app/-/eslint-config-react-app-0.5.0.tgz#68c6da07d1cfbce6a992bc244ba16186b942d89f"
@@ -1863,36 +1842,11 @@ eslint-module-utils@^1.0.0:
     debug "2.2.0"
     pkg-dir "^1.0.0"
 
-eslint-plugin-flowtype@2.18.1:
-  version "2.18.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.18.1.tgz#f027524c58b90d27a0544e74c082fba070afd9c8"
-  dependencies:
-    lodash "^4.15.0"
-
 eslint-plugin-flowtype@2.21.0:
   version "2.21.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.21.0.tgz#a47e85abcdd181d37a336054bd552149ae387d9c"
   dependencies:
     lodash "^4.15.0"
-
-eslint-plugin-import@1.12.0:
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-import/-/eslint-plugin-import-1.12.0.tgz#11307eb08179f43692fa845ba8542e82fa333e21"
-  dependencies:
-    builtin-modules "^1.1.1"
-    contains-path "^0.1.0"
-    debug "^2.2.0"
-    doctrine "1.2.x"
-    es6-map "^0.1.3"
-    es6-set "^0.1.4"
-    eslint-import-resolver-node "^0.2.0"
-    lodash.cond "^4.3.0"
-    lodash.endswith "^4.0.1"
-    lodash.find "^4.3.0"
-    lodash.findindex "^4.3.0"
-    object-assign "^4.0.1"
-    pkg-dir "^1.0.0"
-    pkg-up "^1.0.0"
 
 eslint-plugin-import@2.0.1:
   version "2.0.1"
@@ -1909,14 +1863,6 @@ eslint-plugin-import@2.0.1:
     minimatch "^3.0.3"
     pkg-up "^1.0.0"
 
-eslint-plugin-jsx-a11y@2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-2.2.2.tgz#ac893b4f9ecb7534bc0373ff6a47388835d3a859"
-  dependencies:
-    damerau-levenshtein "^1.0.0"
-    jsx-ast-utils "^1.0.0"
-    object-assign "^4.0.1"
-
 eslint-plugin-jsx-a11y@2.2.3:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/eslint-plugin-jsx-a11y/-/eslint-plugin-jsx-a11y-2.2.3.tgz#4e35cb71b8a7db702ac415c806eb8e8d9ea6c65d"
@@ -1925,57 +1871,12 @@ eslint-plugin-jsx-a11y@2.2.3:
     jsx-ast-utils "^1.0.0"
     object-assign "^4.0.1"
 
-eslint-plugin-react@6.3.0:
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-6.3.0.tgz#fac3504a02917fc8b15f7f28514058cffde9cb76"
-  dependencies:
-    doctrine "^1.2.2"
-    jsx-ast-utils "^1.3.1"
-
 eslint-plugin-react@6.4.1:
   version "6.4.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-6.4.1.tgz#7d1aade747db15892f71eee1fea4addf97bcfa2b"
   dependencies:
     doctrine "^1.2.2"
     jsx-ast-utils "^1.3.1"
-
-eslint@3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-3.5.0.tgz#22fc9f780ea5bca1306fab2b6d3336b0fa62c754"
-  dependencies:
-    chalk "^1.1.3"
-    concat-stream "^1.4.6"
-    debug "^2.1.1"
-    doctrine "^1.2.2"
-    escope "^3.6.0"
-    espree "^3.1.6"
-    estraverse "^4.2.0"
-    esutils "^2.0.2"
-    file-entry-cache "^2.0.0"
-    glob "^7.0.3"
-    globals "^9.2.0"
-    ignore "^3.1.5"
-    imurmurhash "^0.1.4"
-    inquirer "^0.12.0"
-    is-my-json-valid "^2.10.0"
-    is-resolvable "^1.0.0"
-    js-yaml "^3.5.1"
-    json-stable-stringify "^1.0.0"
-    levn "^0.3.0"
-    lodash "^4.0.0"
-    mkdirp "^0.5.0"
-    natural-compare "^1.4.0"
-    optionator "^0.8.1"
-    path-is-inside "^1.0.1"
-    pluralize "^1.2.1"
-    progress "^1.1.8"
-    require-uncached "^1.0.2"
-    shelljs "^0.6.0"
-    strip-bom "^3.0.0"
-    strip-json-comments "~1.0.1"
-    table "^3.7.8"
-    text-table "~0.2.0"
-    user-home "^2.0.0"
 
 eslint@3.8.1:
   version "3.8.1"
@@ -2015,7 +1916,7 @@ eslint@3.8.1:
     text-table "~0.2.0"
     user-home "^2.0.0"
 
-espree@^3.1.6, espree@^3.3.1:
+espree@^3.3.1:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/espree/-/espree-3.4.0.tgz#41656fa5628e042878025ef467e78f125cb86e1d"
   dependencies:
@@ -2513,6 +2414,10 @@ hoek@2.x.x:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
 
+hoist-non-react-statics@^1.0.3:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
+
 home-or-tmp@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/home-or-tmp/-/home-or-tmp-2.0.0.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
@@ -2676,7 +2581,7 @@ interpret@^0.6.4:
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-0.6.6.tgz#fecd7a18e7ce5ca6abfb953e1f86213a49f1625b"
 
-invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2:
+invariant@^2.0.0, invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
   dependencies:
@@ -3339,7 +3244,7 @@ lodash._getnative@^3.0.0:
   version "3.9.1"
   resolved "https://registry.yarnpkg.com/lodash._getnative/-/lodash._getnative-3.9.1.tgz#570bc7dede46d61cdcde687d65d3eecbaa3aaff5"
 
-lodash.assign@^4.0.0, lodash.assign@^4.2.0:
+lodash.assign@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/lodash.assign/-/lodash.assign-4.2.0.tgz#0d99f3ccd7a6d261d19bdaeb9245005d285808e7"
 
@@ -3357,18 +3262,6 @@ lodash.clonedeep@^3.0.0:
 lodash.cond@^4.3.0:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/lodash.cond/-/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
-
-lodash.endswith@^4.0.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/lodash.endswith/-/lodash.endswith-4.2.1.tgz#fed59ac1738ed3e236edd7064ec456448b37bc09"
-
-lodash.find@^4.3.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/lodash.find/-/lodash.find-4.6.0.tgz#cb0704d47ab71789ffa0de8b97dd926fb88b13b1"
-
-lodash.findindex@^4.3.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/lodash.findindex/-/lodash.findindex-4.6.0.tgz#a3245dee61fb9b6e0624b535125624bb69c11106"
 
 lodash.isarguments@^3.0.0:
   version "3.1.0"
@@ -3390,7 +3283,7 @@ lodash.memoize@^4.1.0:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
 
-lodash.pickby@^4.0.0, lodash.pickby@^4.6.0:
+lodash.pickby@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.pickby/-/lodash.pickby-4.6.0.tgz#7dea21d8c18d7703a27c704c15d3b84a67e33aff"
 
@@ -3398,7 +3291,7 @@ lodash.uniq@^4.3.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
-"lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.16.2, lodash@^4.16.4, lodash@^4.2.0, lodash@^4.3.0:
+"lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.11.0, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.16.2, lodash@^4.16.4, lodash@^4.2.0, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -4336,6 +4229,15 @@ react-dom@^15.4.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
 
+react-refetch@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-refetch/-/react-refetch-1.0.0.tgz#e55ca0880f369bad82a7fd3bbb5b0f20358679e1"
+  dependencies:
+    hoist-non-react-statics "^1.0.3"
+    invariant "^2.0.0"
+    lodash "^4.11.0"
+    warning "^2.1.0"
+
 react-router-dom@next:
   version "4.0.0-beta.5"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.0.0-beta.5.tgz#cb104b789d3a7af159c06ce76e7253978447f9aa"
@@ -5248,6 +5150,12 @@ walker@~1.0.5:
   resolved "https://registry.yarnpkg.com/walker/-/walker-1.0.7.tgz#2f7f9b8fd10d677262b18a884e28d19618e028fb"
   dependencies:
     makeerror "1.0.x"
+
+warning@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/warning/-/warning-2.1.0.tgz#21220d9c63afc77a8c92111e011af705ce0c6901"
+  dependencies:
+    loose-envify "^1.0.0"
 
 warning@^3.0.0:
   version "3.0.0"
