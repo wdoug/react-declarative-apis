@@ -6,6 +6,9 @@
   },
 
   "rules": {
-    "no-unused-vars": ["error", { "args": "none" }]
+    "no-unused-vars": ["error", { "args": "none" }],
+    "func-call-spacing": "off",
+    "object-curly-spacing": "off",
+    "max-len": "warn"
   }
 }
