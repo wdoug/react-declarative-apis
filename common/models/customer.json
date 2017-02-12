@@ -18,6 +18,20 @@
       "type": "hasMany",
       "model": "Todo",
       "foreignKey": "creatorId"
+    },
+    "followers": {
+      "type": "hasMany",
+      "model": "Customer",
+      "foreignKey": "followeeId",
+      "keyThrough": "followerId",
+      "through": "Follow"
+    },
+    "following": {
+      "type": "hasMany",
+      "model": "Customer",
+      "foreignKey": "followerId",
+      "keyThrough": "followeeId",
+      "through": "Follow"
     }
   },
   "acls": [
