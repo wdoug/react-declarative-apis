@@ -8,5 +8,5 @@ module.exports = function(server) {
     schema: createSchema(server),
     graphiql: true,
   }));
-  console.log('graphql api on /graphql');
+  console.log('graphql api on http://0.0.0.0:3001/graphql');
 };
