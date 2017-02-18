@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-refetch';
 
-const Followers = ({ customer, followers, url }) => {
+const Profile = ({ customer, followers, url }) => {
   if (customer.pending || followers.pending) {
     return <div>...loading</div>;
   }
@@ -26,9 +25,4 @@ const Followers = ({ customer, followers, url }) => {
   );
 };
 
-const FollowersWithData = connect(({ id }) => ({
-  customer: `/api/customers/${id}`,
-  followers: `/api/customers/${id}/followers`
-}))(Followers);
-
-export default FollowersWithData;
+export default Profile;
