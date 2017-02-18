@@ -4,7 +4,7 @@ const {
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
-  // GraphQLInt,
+  GraphQLInt,
   // GraphQLFloat,
   // GraphQLEnumType,
   GraphQLNonNull,
@@ -13,11 +13,45 @@ const {
 module.exports = function(server) {
   const Todo = new GraphQLObjectType({
     name: 'Todo',
-    description: 'Represent the type of an todo of a blog post or a comment',
+    description: 'Represent the type of a todo',
     fields: () => ({
-      id: {type: GraphQLString},
+      id: {type: GraphQLInt},
       content: {type: GraphQLString},
-    }),
+    })
+  });
+
+  const FollowerConnection = new GraphQLObjectType({
+    name: 'FollowerConnection',
+    fields: () => ({
+      edges: {
+        type: GraphQLList(Customer)
+      },
+      resolve(parent, args, info) {
+
+      }
+    })
+  });
+
+  const FollowerNode = new GraphQLObjectType({
+    name: 'FollowerNode',
+    fields: () => ({
+      node: Customer
+    })
+  });
+
+  const Customer = new GraphQLObjectType({
+    name: 'Customer',
+    description: 'These are the users',
+    fields: () => ({
+      id: { type: GraphQLInt },
+      name: { type: GraphQLString },
+      followers: {
+        type: FollowerConnection,
+        resolve(parent, args, info) {
+          return server.models.Follow.find({ where: { followeeId: parent.id }});
+        }
+      }
+    })
   });
 
   const Query = new GraphQLObjectType({
@@ -25,11 +59,17 @@ module.exports = function(server) {
     fields: {
       todos: {
         type: new GraphQLList(Todo),
-        resolve: function(rootValue, args, info) {
+        resolve(rootValue, args, info) {
           return server.models.Todo.all();
-        },
+        }
       },
-    },
+      customers: {
+        type: new GraphQLList(Customer),
+        resolve(rootValue, args, info) {
+          return server.models.Customer.all();
+        }
+      }
+    }
   });
 
   const Mutation = new GraphQLObjectType({
@@ -40,12 +80,12 @@ module.exports = function(server) {
         args: {
           content: {type: new GraphQLNonNull(GraphQLString)},
         },
-        resolve: function(rootValue, args) {
+        resolve(rootValue, args) {
           const newTodo = Object.assign({}, args);
           return server.models.Todo.create(newTodo);
-        },
-      },
-    },
+        }
+      }
+    }
   });
 
   const Schema = new GraphQLSchema({

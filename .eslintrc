@@ -14,6 +14,7 @@
     "import/no-unresolved": 2,
     "max-len": "warn",
     "no-unused-vars": ["error", { "args": "none" }],
-    "object-curly-spacing": "off"
+    "object-curly-spacing": "off",
+    "comma-dangle": "off"
   }
 }
