@@ -2,9 +2,11 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import ReactRefetchProfile from './react-refetch/ProfileContainer';
+import GimmeDataProfile from './gimmeData/ProfileContainer';
 
 const techContainers = {
-  'react-refetch': ReactRefetchProfile
+  'react-refetch': ReactRefetchProfile,
+  gimmeData: GimmeDataProfile,
 };
 
 const NoMatch = () => (

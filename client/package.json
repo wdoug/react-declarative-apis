@@ -8,8 +8,12 @@
   "dependencies": {
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-redux": "^5.0.2",
     "react-refetch": "^1.0.0",
-    "react-router-dom": "next"
+    "react-router-dom": "next",
+    "react-side-effect": "^1.1.0",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
