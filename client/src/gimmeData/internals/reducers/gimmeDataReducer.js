@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import normalizedModelsReducer from './normalizedModelsReducer';
 import urlDataReducer from './urlDataReducer';
-import { getModelNameFromUrl, urlHasQueryParams } from '../urlParsing';
-import { STALE, FETCHING } from '../constants/urlStatuses';
+import { getModelNameFromUrl } from '../urlParsing';
+import { STALE, FETCHING, FAILED } from '../constants/urlStatuses';
 
 export const stateKey = 'gimmeData';
 
@@ -47,7 +47,22 @@ export function getUrlDataStatus(state, url) {
 }
 
 export const isUrlDataFetching = (state, url) => getUrlDataStatus(state, url) === FETCHING;
+
 export const shouldFetchUrl = (state, url) => {
   const urlStatus = getUrlDataStatus(state, url);
   return urlStatus === undefined || urlStatus === STALE;
+};
+
+export const getHydratedPropsFromPropUrlMap = (state, propsToUrlsMap) => {
+  return Object.keys(propsToUrlsMap).reduce((hydratedProps, propKey) => {
+    const url = propsToUrlsMap[propKey];
+    const urlStatus = getUrlDataStatus(state, url);
+
+    hydratedProps[propKey] = {
+      pending: urlStatus === FETCHING,
+      rejected: urlStatus === FAILED,
+      value: getModels(state, url)
+    };
+    return hydratedProps;
+  }, {});
 };

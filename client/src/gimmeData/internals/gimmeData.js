@@ -1,32 +1,36 @@
-import { compose } from 'redux';
+import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import withSideEffect from 'react-side-effect';
 import { newDataRequested } from './actions';
-import { getModels, getUrlDataStatus } from './reducers/gimmeDataReducer';
-import { FETCHING, FAILED } from './constants/urlStatuses';
+import { getHydratedPropsFromPropUrlMap } from './reducers/gimmeDataReducer';
 
 function isObject(o) {
   return o !== null && typeof o === 'object';
 }
 
-function reducePropsToState(propsList) {
-  const allUrlsToFetch = propsList.reduce((allUrlsToFetch, props) => {
+function getUniqueUrlsToFetchFromPropsList(propsList) {
+  return propsList.reduce((uniqueUrlsToFetch, props) => {
     return props.urlsToFetch
-      .reduce((allUrlsToFetch, urls) => {
-        return allUrlsToFetch.add(urls);
-      }, allUrlsToFetch);
+      .reduce((uniqueUrlsToFetch, urls) => {
+        return uniqueUrlsToFetch.add(urls);
+      }, uniqueUrlsToFetch);
   }, new Set());
+}
 
-  const dispatchNewDataRequested = propsList[0].dispatchNewDataRequested;
+function reducePropsToState(propsList) {
+  const uniqueUrlsToFetch = getUniqueUrlsToFetchFromPropsList(propsList);
+  const dispatchNewDataRequested = propsList[0] && propsList[0].dispatchNewDataRequested;
 
   return {
     dispatchNewDataRequested,
-    allUrlsToFetch
+    uniqueUrlsToFetch
   };
 }
 
-function handleStateChangeOnClient({ allUrlsToFetch, dispatchNewDataRequested }) {
-  allUrlsToFetch.size > 0 && dispatchNewDataRequested(allUrlsToFetch);
+function handleStateChangeOnClient({ uniqueUrlsToFetch, dispatchNewDataRequested }) {
+  if (uniqueUrlsToFetch.size > 0) {
+    dispatchNewDataRequested && dispatchNewDataRequested(uniqueUrlsToFetch);
+  }
 }
 
 const fetchDataWrapper = withSideEffect(
@@ -37,13 +41,10 @@ const fetchDataWrapper = withSideEffect(
 // This is a higher order component that will handle fetching data from a
 // loopback api endpoint, and pass that data into the resulting wrapped component.
 //
-// Simple usage:
-// const ComponentContainer = gimmeData('events')(Component);
-//
-// The first argument can be either a url string, or a function that returns a
-// url string.
+// The first argument is a function that returns an object with values of urls,
+// and keys of corresponding props for the data returned from those urls
 // e.g.
-// const dynamicUrlFn = (state, props) => `events/${props.eventId}`;
+// const dynamicUrlFn = (state, props) => { propName: `events/${props.eventId}` };
 // const ComponentContainer = gimmeData(dynamicUrlFn)(Component);
 //
 // If additional data or actions need to be passed to the component, `gimmeData`
@@ -61,21 +62,11 @@ const fetchDataWrapper = withSideEffect(
 //   mapStateToProps,
 //   mapDispatchToProps
 // )(Component);
-export default function gimmeData(mapStateToUrlsToProps) {
+export default function gimmeData(mapStateToUrlsToProps, mapStateToProps, mapDispatchToProps) {
   const innerMapStateToProps = (state, props) => {
     const propsToUrlsMap = mapStateToUrlsToProps(state, props);
     const urlsToFetch = Object.values(propsToUrlsMap);
-    const urlProps = Object.keys(propsToUrlsMap).reduce((urlProps, propKey) => {
-      const url = propsToUrlsMap[propKey];
-      const urlStatus = getUrlDataStatus(state, url);
-
-      urlProps[propKey] = {
-        pending: urlStatus === FETCHING,
-        rejected: urlStatus === FAILED,
-        value: getModels(state, url)
-      };
-      return urlProps;
-    }, {});
+    const urlProps = getHydratedPropsFromPropUrlMap(state, propsToUrlsMap);
 
     return {
       ...urlProps,
@@ -84,25 +75,25 @@ export default function gimmeData(mapStateToUrlsToProps) {
   };
 
   const innerMapDispatchToProps = (dispatch) => {
-    // let mappedDispatchProps;
-    // if (typeof mapDispatchToProps === 'function') {
-    //   mappedDispatchProps = mapDispatchToProps(dispatch);
-    // } else if (isObject(mapDispatchToProps)) {
-    //   mappedDispatchProps = bindActionCreators(mapDispatchToProps, dispatch);
-    // }
+    let mappedDispatchProps;
+    if (typeof mapDispatchToProps === 'function') {
+      mappedDispatchProps = mapDispatchToProps(dispatch);
+    } else if (isObject(mapDispatchToProps)) {
+      mappedDispatchProps = bindActionCreators(mapDispatchToProps, dispatch);
+    }
 
     return {
-      // ...mappedDispatchProps,
+      ...mappedDispatchProps,
       dispatchNewDataRequested: (...args) => dispatch(newDataRequested(...args))
     };
   };
 
   return (ComposedComponent) => {
-    const enhancedFetchingComponent = compose(
+    const EnhancedFetchingComponent = compose(
       connect(innerMapStateToProps, innerMapDispatchToProps),
       fetchDataWrapper
     )(ComposedComponent);
 
-    return enhancedFetchingComponent;
+    return EnhancedFetchingComponent;
   };
 }
