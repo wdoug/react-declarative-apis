@@ -7,6 +7,7 @@ import {
   NEW_DATA_RECEIVED,
   NEW_DATA_FAILED,
 } from './constants/reduxConstants';
+import { shouldFetchUrl } from './reducers/gimmeDataReducer';
 
 const api = { get, put, post, patch, delete: del };
 
@@ -64,7 +65,12 @@ const newDataFailed = createErrorAction(NEW_DATA_FAILED);
 
 export function newDataRequested(urlsIterable) {
   return async (dispatch, getState) => {
-    const urls = Array.from(urlsIterable);
+    const state = getState();
+    const urls = Array.from(urlsIterable).filter(url => shouldFetchUrl(state, url));
+    if (urls.length === 0) {
+      return;
+    }
+
     const metaData = { method: 'get', urls };
 
     try {

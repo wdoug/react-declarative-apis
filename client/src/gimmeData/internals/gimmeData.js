@@ -2,7 +2,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import withSideEffect from 'react-side-effect';
 import { newDataRequested } from './actions';
-import { getModels, getUrlDataStatus, shouldFetchUrl } from './reducers/gimmeDataReducer';
+import { getModels, getUrlDataStatus } from './reducers/gimmeDataReducer';
 import { FETCHING, FAILED } from './constants/urlStatuses';
 
 function isObject(o) {
@@ -10,10 +10,8 @@ function isObject(o) {
 }
 
 function reducePropsToState(propsList) {
-  const latestShouldFetchUrl = propsList[propsList.length - 1].shouldFetchUrl;
   const allUrlsToFetch = propsList.reduce((allUrlsToFetch, props) => {
     return props.urlsToFetch
-      .filter(url => latestShouldFetchUrl(url))
       .reduce((allUrlsToFetch, urls) => {
         return allUrlsToFetch.add(urls);
       }, allUrlsToFetch);
@@ -66,8 +64,7 @@ const fetchDataWrapper = withSideEffect(
 export default function gimmeData(mapStateToUrlsToProps) {
   const innerMapStateToProps = (state, props) => {
     const propsToUrlsMap = mapStateToUrlsToProps(state, props);
-    const urls = Object.values(propsToUrlsMap);
-    const urlsToFetch = urls.filter(url => shouldFetchUrl(state, url));
+    const urlsToFetch = Object.values(propsToUrlsMap);
     const urlProps = Object.keys(propsToUrlsMap).reduce((urlProps, propKey) => {
       const url = propsToUrlsMap[propKey];
       const urlStatus = getUrlDataStatus(state, url);
@@ -83,7 +80,6 @@ export default function gimmeData(mapStateToUrlsToProps) {
     return {
       ...urlProps,
       urlsToFetch,
-      shouldFetchUrl: shouldFetchUrl.bind(null, state)
     };
   };
 
@@ -102,29 +98,6 @@ export default function gimmeData(mapStateToUrlsToProps) {
   };
 
   return (ComposedComponent) => {
-    // class DataWrapper extends React.Component {
-    //   static propTypes = {
-    //     apiAction: PropTypes.func.isRequired,
-    //     url: PropTypes.string.isRequired,
-    //     shouldFetchUrl: PropTypes.bool.isRequired
-    //   };
-
-    //   componentDidMount() {
-    //     this.props.apiAction('get', this.props.url);
-    //   }
-
-    //   componentWillReceiveProps(nextProps) {
-    //     if (nextProps.shouldFetchUrl) {
-    //       nextProps.apiAction('get', nextProps.url);
-    //     }
-    //   }
-
-    //   render() {
-    //     return <ComposedComponent {...this.props} />;
-    //   }
-    // }
-
-
     const enhancedFetchingComponent = compose(
       connect(innerMapStateToProps, innerMapDispatchToProps),
       fetchDataWrapper
