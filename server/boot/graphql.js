@@ -9,15 +9,18 @@ module.exports = function(server) {
   //   graphiql: true,
   // }));
 
+  const CustomerModel = server.models.Customer;
+  const FollowModel = server.models.Follow;
+
   const schema = buildSchema(`
     type Customer {
       id: ID!,
       name: String,
-      followers: FollowerConnection
+      followers: FollowerConnection!
     }
 
     type FollowerConnection {
-      edges: [CustomerEdge]
+      edges: [CustomerEdge]!
     }
 
     type CustomerEdge {
@@ -25,7 +28,12 @@ module.exports = function(server) {
     }
 
     type Query {
-      customers: [Customer]
+      customers: [Customer]!
+      getCustomer(id: ID!): Customer
+    }
+
+    type Mutation {
+      follow(id: ID!, signedInId: ID!): Customer
     }
   `);
 
@@ -36,10 +44,9 @@ module.exports = function(server) {
     }
 
     followers() {
-      const Followers = server.models.Follow.find({ where: { followeeId: this.id }, include: 'follower' });
-      console.log('id', this.id);
+      const Followers = FollowModel.find({ where: { followeeId: this.id }, include: 'follower' });
       // Followers.then(f => console.log('f', f));
-      Followers.map(f => ({ node: f.follower.getAsync() })).then(r => console.log(r));
+      Followers.map(f => ({ node: f.follower.getAsync() }));
       // console.log('Followers', Followers);
       return {
         // edges: [{
@@ -54,11 +61,22 @@ module.exports = function(server) {
 
   const rootValue = {
     customers() {
-      const custs = server.models.Customer.all();
-      console.log('custs', custs);
-      return custs.map(c => new Customer(c));
+      return CustomerModel.all().map(c => new Customer(c));
     },
-
+    getCustomer(args) {
+      const id = args.id;
+      return CustomerModel.findOne({ where: { id } }).then(c => new Customer(c));
+    },
+    follow(args) {
+      const signedInUserPromise = CustomerModel.findOne({ where: { id: args.signedInId }});
+      const otherUserPromise = CustomerModel.findOne({ where: { id: args.id }});
+      return Promise.all([
+        signedInUserPromise,
+        otherUserPromise
+      ]).then(([signedInUser, otherUser]) => {
+        return otherUser.followers.add(signedInUser).then(() => otherUser);
+      }).then(otherUser => new Customer(otherUser));
+    }
   };
 
   server.use('/graphql', expressGraphql({

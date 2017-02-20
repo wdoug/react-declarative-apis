@@ -3,10 +3,12 @@ import { Route } from 'react-router-dom';
 
 import ReactRefetchProfile from './react-refetch/ProfileContainer';
 import GimmeDataProfile from './gimmeData/ProfileContainer';
+import ApolloClientProfile from './apollo/ProfileContainer';
 
 const techContainers = {
   'react-refetch': ReactRefetchProfile,
   gimmeData: GimmeDataProfile,
+  apollo: ApolloClientProfile,
 };
 
 const NoMatch = () => (

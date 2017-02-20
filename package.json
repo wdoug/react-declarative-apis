@@ -5,7 +5,9 @@
   "scripts": {
     "lint": "eslint .",
     "client": "cd client && npm start",
-    "start": "concurrently \"node .\" \"npm run client\"",
+    "start": "concurrently \"node server/server.js\" \"npm run client\"",
+    "start:watch-server": "concurrently \"npm run server-watch\" \"npm run client\"",
+    "server-watch": "nodemon --watch server --watch common server/server.js",
     "posttest": "npm run lint && nsp check"
   },
   "dependencies": {
