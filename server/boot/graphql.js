@@ -1,14 +1,8 @@
 'use strict';
 const expressGraphql = require('express-graphql');
-// const createSchema = require('../graphql/createSchema');
 const { buildSchema } = require('graphql');
 
 module.exports = function(server) {
-  // server.use('/graphql', expressGraphql({
-  //   schema: createSchema(server),
-  //   graphiql: true,
-  // }));
-
   const CustomerModel = server.models.Customer;
   const FollowModel = server.models.Follow;
 
@@ -45,13 +39,7 @@ module.exports = function(server) {
 
     followers() {
       const Followers = FollowModel.find({ where: { followeeId: this.id }, include: 'follower' });
-      // Followers.then(f => console.log('f', f));
-      Followers.map(f => ({ node: f.follower.getAsync() }));
-      // console.log('Followers', Followers);
       return {
-        // edges: [{
-        //   node: {}
-        // }]
         edges: Followers.map(followerData => ({
           node: followerData.follower.getAsync().then(c => new Customer(c))
         }))

@@ -14,11 +14,6 @@
   },
   "validations": [],
   "relations": {
-    "todos": {
-      "type": "hasMany",
-      "model": "Todo",
-      "foreignKey": "creatorId"
-    },
     "followers": {
       "type": "hasMany",
       "model": "Customer",

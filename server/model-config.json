@@ -33,10 +33,6 @@
     "dataSource": "db",
     "public": false
   },
-  "Todo": {
-    "dataSource": "db",
-    "public": true
-  },
   "Customer": {
     "dataSource": "db",
     "public": true
