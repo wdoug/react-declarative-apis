@@ -14,7 +14,7 @@ module.exports = function(server) {
 
   const schema = buildSchema(`
     type Customer {
-      id: ID!,
+      id: Int!,
       name: String,
       followers: FollowerConnection!
     }
@@ -29,11 +29,11 @@ module.exports = function(server) {
 
     type Query {
       customers: [Customer]!
-      getCustomer(id: ID!): Customer
+      getCustomer(id: Int!): Customer
     }
 
     type Mutation {
-      follow(id: ID!, signedInId: ID!): Customer
+      follow(id: Int!, signedInId: Int!): Customer
     }
   `);
 

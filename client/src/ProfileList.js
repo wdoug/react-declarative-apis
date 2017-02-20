@@ -4,8 +4,12 @@ import { Route } from 'react-router-dom';
 import ReactRefetchProfile from './react-refetch/ProfileContainer';
 import GimmeDataProfile from './gimmeData/ProfileContainer';
 import ApolloClientProfile from './apollo/ProfileContainer';
+import ComponentStateProfile from './component-state/ProfileContainer';
+import SimpleHOCProfile from './simple-hoc/ProfileContainer';
 
 const techContainers = {
+  'component-state': ComponentStateProfile,
+  'simple-hoc': SimpleHOCProfile,
   'react-refetch': ReactRefetchProfile,
   gimmeData: GimmeDataProfile,
   apollo: ApolloClientProfile,

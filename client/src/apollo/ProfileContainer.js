@@ -23,7 +23,7 @@ const transformMutationToPropsShape = ({ mutate, ownProps }) => {
 };
 
 const getCustomer = gql`
-  query getCustomers($userId: ID!) {
+  query getCustomers($userId: Int!) {
     customer: getCustomer(id: $userId) {
       id
       name
@@ -40,7 +40,7 @@ const getCustomer = gql`
 `;
 
 const followUser = gql`
-  mutation followUser($userId: ID!, $signedInId: ID!) {
+  mutation followUser($userId: Int!, $signedInId: Int!) {
     follow(id: $userId, signedInId: $signedInId) {
       id
       name
