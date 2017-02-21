@@ -3650,6 +3650,10 @@ normalize-url@^1.4.0:
     query-string "^4.1.0"
     sort-keys "^1.0.0"
 
+normalizr@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/normalizr/-/normalizr-3.2.1.tgz#85a2d3d0ffb9c3b08f4131cb8d8fbfb7e9211b35"
+
 npmlog@^4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/npmlog/-/npmlog-4.0.2.tgz#d03950e0e78ce1527ba26d2a7592e9348ac3e75f"

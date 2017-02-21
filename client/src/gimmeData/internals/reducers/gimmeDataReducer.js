@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import normalizedModelsReducer from './normalizedModelsReducer';
+import normalizedModelsReducer, { getDenormalizedModel } from './normalizedModelsReducer';
 import urlDataReducer from './urlDataReducer';
 import { getModelNameFromUrl } from '../urlParsing';
 import { STALE, FETCHING, FAILED } from '../constants/urlStatuses';
@@ -15,18 +15,12 @@ export default combineReducers({
 // Selectors
 
 function hydrateModels(modelName, normalizedModels, ids) {
-  const modelsOfSameType = normalizedModels[modelName];
-  if (!modelsOfSameType) {
-    return undefined;
-  }
-
   if (Array.isArray(ids)) {
     return ids.reduce((hydratedModels, id) => {
-      hydratedModels.push(modelsOfSameType[id]);
-      return hydratedModels;
+      return getDenormalizedModel(normalizedModels, modelName, id);
     }, []);
   }
-  return modelsOfSameType[ids];
+  return getDenormalizedModel(normalizedModels, modelName, ids);
 }
 
 export function getModels(state, url) {

@@ -14,7 +14,6 @@ import {
   STALE
 } from '../constants/urlStatuses';
 
-
 function urlDataFetching(urlDataState, url) {
   return i.setIn(urlDataState, [url, 'status'], FETCHING);
 }

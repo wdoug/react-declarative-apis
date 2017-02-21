@@ -5,8 +5,8 @@ const modelAliases = {
 };
 
 const relLookup = {
-  following: 'customers',
-  followers: 'customers'
+  following: 'follow',
+  followers: 'follow'
 };
 
 function getModelAlias(name) {
