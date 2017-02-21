@@ -67,10 +67,12 @@ function handleGetRequest(urlDataState, action) {
 }
 
 function handleUpdateRequest(urlDataState, action) {
-  // pessimistically set everything to stale on mutations
+  const pessimisticallyRefetchUrlFn = () => true;
+  const refetchUrlIfMatch = action.meta && action.meta.onlyRefetchMatchingUrls || pessimisticallyRefetchUrlFn;
+
   return Object.keys(urlDataState).reduce((newState, url) => {
-    return i.setIn(urlDataState, [url, 'status'], STALE);
-  }, {});
+    return refetchUrlIfMatch(url) ? i.setIn(newState, [url, 'status'], STALE) : newState;
+  }, urlDataState);
 }
 
 

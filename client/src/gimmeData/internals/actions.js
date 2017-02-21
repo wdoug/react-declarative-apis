@@ -39,10 +39,10 @@ export const apiActionFail = createErrorAction(API_ACTION_FAIL);
 // example: apiAction('put', 'users/1/eventsAttending/rel/1')
 // example: apiAction('post', (state) => 'users/1/events', { body: eventData })
 // urlFn can be either a string, or a function that resolves to a string
-export function apiAction(method, urlFn, { body, onSuccess } = {}) {
+export function apiAction(method, urlFn, { body, onSuccess, onlyRefetchMatchingUrls } = {}) {
   return async (dispatch, getState) => {
     const url = (typeof urlFn === 'function') ? urlFn(getState()) : urlFn;
-    const metaData = { method, url, body };
+    const metaData = { method, url, body, onlyRefetchMatchingUrls };
 
     try {
       dispatch(apiActionStart(null, metaData));

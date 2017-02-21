@@ -10,7 +10,9 @@ const mapDispatchToProps = (dispatch, props) => {
   const loggedInId = 1; // could get this from props
 
   return {
-    followClicked: (id) => dispatch(apiAction('put', `customers/${id}/followers/rel/${loggedInId}`))
+    followClicked: (id) => dispatch(apiAction('put', `customers/${id}/followers/rel/${loggedInId}`, {
+      onlyRefetchMatchingUrls: (url) => new RegExp(`customers/${id}`, 'i').test(url)
+    }))
   };
 };
 
