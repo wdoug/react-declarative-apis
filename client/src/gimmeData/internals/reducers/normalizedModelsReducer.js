@@ -6,10 +6,10 @@ import { getModelNameFromUrl } from '../urlParsing';
 
 function updateModels(modelState, data) {
   const nextModelState = { ...modelState };
-  const normalizedData = Array.isArray(data) ? data : [data];
+  const dataArray = Array.isArray(data) ? data : [data];
 
-  normalizedData.forEach(model => {
-    nextModelState[model.id] = model;
+  dataArray.forEach(model => {
+    nextModelState[model.id] = modelState ? { ...modelState[model.id], ...model } : model;
   });
 
   return nextModelState;

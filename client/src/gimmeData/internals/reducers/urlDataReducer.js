@@ -1,3 +1,4 @@
+import i from 'icepick';
 import {
   API_ACTION_START,
   API_ACTION_SUCCESS,
@@ -12,104 +13,67 @@ import {
   FETCHING,
   STALE
 } from '../constants/urlStatuses';
-import {
-  urlHasQueryParams
-} from '../urlParsing';
 
-function setUrlDataStatus(currentUrlData, status) {
-  return {
-    ...currentUrlData,
-    status
-  };
+
+function urlDataFetching(urlDataState, url) {
+  return i.setIn(urlDataState, [url, 'status'], FETCHING);
 }
 
-function setUrlDataFetching(currentUrlData) {
-  return {
-    ...currentUrlData,
-    status: FETCHING
-  };
-}
-
-function setUrlDataSuccess(urlDataState, data) {
+function urlDataReceived(urlDataState, url, data) {
   const ids = Array.isArray(data) ? data.map(model => model.id) : data.id;
-  return {
+  return i.updateIn(urlDataState, [url], (urlData) => ({
+    ...urlData,
     ids,
     status: CURRENT
-  };
+  }));
 }
 
-function setUrlUnnormalizedData(urlDataState, data) {
-  return {
-    status: CURRENT,
-    data
-  };
-}
-
-function setUrlDataFailed(currentUrlData) {
-  return {
-    ...currentUrlData,
-    status: FAILED
-  };
-}
-
-function updateUrlData(updater, urlDataState, action) {
-  const { url } = action.meta;
-  return {
-    ...urlDataState,
-    [url]: updater(urlDataState[url], action.payload)
-  };
-}
-
-function updateMultipleUrlData(updater, urlDataState, action) {
-  const urlToModelMap = action.payload || {};
-  const urls = action.meta.urls;
-  const newUrlData = urls.reduce((newUrlDataState, url) => {
-    newUrlDataState[url] = updater(urlDataState[url], urlToModelMap[url]);
-    return newUrlDataState;
-  }, {});
-  return {
-    ...urlDataState,
-    ...newUrlData
-  };
-}
-
-function handleUpdateRequest(urlDataState, action) {
-  const newState = {};
-  Object.keys(urlDataState).forEach((url) => {
-    newState[url] = setUrlDataStatus(urlDataState[url], STALE);
-  });
-  return newState;
+function urlDataFailed(urlDataState, url) {
+  return i.setIn(urlDataState, [url, 'status'], FAILED);
 }
 
 function handleGetRequest(urlDataState, action) {
+  const url = action.meta && action.meta.url;
+  const urls = action.meta && action.meta.urls;
   switch (action.type) {
     case API_ACTION_START:
-      return updateUrlData(setUrlDataFetching, urlDataState, action);
+      return urlDataFetching(urlDataState, url);
 
     case API_ACTION_SUCCESS:
-      if (urlHasQueryParams(action.meta.url)) {
-        return updateUrlData(setUrlUnnormalizedData, urlDataState, action);
-      }
-      return updateUrlData(setUrlDataSuccess, urlDataState, action);
+      return urlDataReceived(urlDataState, url, action.payload);
 
     case API_ACTION_FAIL:
-      return updateUrlData(setUrlDataFailed, urlDataState, action);
+      return urlDataFailed(urlDataState, url);
 
 
     case NEW_DATA_REQUESTED:
-      return updateMultipleUrlData(setUrlDataFetching, urlDataState, action);
+      return urls.reduce((newUrlDataState, url) => {
+        return urlDataFetching(newUrlDataState, url);
+      }, urlDataState);
 
     case NEW_DATA_RECEIVED:
-      return updateMultipleUrlData(setUrlDataSuccess, urlDataState, action);
+      const urlToModelMap = action.payload || {};
+      return urls.reduce((newUrlDataState, url) => {
+        return urlDataReceived(newUrlDataState, url, urlToModelMap[url]);
+      }, urlDataState);
 
     case NEW_DATA_FAILED:
-      return updateMultipleUrlData(setUrlDataFailed, urlDataState, action);
-
+      return urls.reduce((newUrlDataState, url) => {
+        return urlDataFailed(newUrlDataState, url);
+      }, urlDataState);
 
     default:
       return urlDataState;
   }
 }
+
+function handleUpdateRequest(urlDataState, action) {
+  // pessimistically set everything to stale on mutations
+  return Object.keys(urlDataState).reduce((newState, url) => {
+    return i.setIn(urlDataState, [url, 'status'], STALE);
+  }, {});
+}
+
 
 const initialUrlData = {};
 
